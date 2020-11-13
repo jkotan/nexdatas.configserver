@@ -2,10 +2,10 @@
 
 # workaround for incomatibility of default ubuntu 16.04 and tango configuration
 if [ "$1" = "ubuntu16.04" ]; then
-    docker exec -it --user root ndts sed -i "s/\[mysqld\]/\[mysqld\]\nsql_mode = NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION/g" /etc/mysql/mysql.conf.d/mysqld.cnf
+    docker exec  --user root ndts sed -i "s/\[mysqld\]/\[mysqld\]\nsql_mode = NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION/g" /etc/mysql/mysql.conf.d/mysqld.cnf
 fi
 if [ "$1" = "ubuntu20.04" ] || [ "$1" = "ubuntu20.10" ]; then
-    docker exec -it --user root ndts sed -i "s/\[mysql\]/\[mysqld\]\nsql_mode = NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION\ncharacter_set_server=latin1\ncollation_server=latin1_swedish_ci\n\[mysql\]/g" /etc/mysql/mysql.conf.d/mysql.cnf
+    docker exec  --user root ndts sed -i "s/\[mysql\]/\[mysqld\]\nsql_mode = NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION\ncharacter_set_server=latin1\ncollation_server=latin1_swedish_ci\n\[mysql\]/g" /etc/mysql/mysql.conf.d/mysql.cnf
 fi
 
 docker exec  --user root ndts service mysql stop
@@ -15,10 +15,8 @@ fi
 docker exec  --user root ndts /bin/bash -c '$(service mysql start &) && sleep 30'
 
 docker exec  --user root ndts /bin/bash -c 'export DEBIAN_FRONTEND=noninteractive; apt-get -qq update; apt-get -qq install -y   tango-db tango-common; sleep 10'
-if [ $? -ne "0" ]
-then
-    exit -1
-fi
+if [ "$?" -ne "0" ]; then exit -1; fi
+
 echo "install tango servers"
 docker exec  --user root ndts /bin/bash -c 'apt-get -qq update; export DEBIAN_FRONTEND=noninteractive;  apt-get -qq update; apt-get -qq install -y  tango-starter tango-test liblog4j1.2-java'
 if [ $? -ne "0" ]
@@ -30,7 +28,8 @@ docker exec  --user root ndts service tango-db restart
 docker exec  --user root ndts service tango-starter restart
 
 
-if [ $2 = "2" ]; then
+docker exec  --user root ndts chown -R tango:tango .
+if [ "$2" = "2" ]; then
     echo "install python-pytango"
       docker exec  --user root ndts /bin/bash -c 'apt-get -qq update; export DEBIAN_FRONTEND=noninteractive; apt-get -qq install -y   python-pytango  python-mysqldb python-setuptools'
 else
