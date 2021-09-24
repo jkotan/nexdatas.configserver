@@ -32,12 +32,13 @@ docker exec  --user root ndts service tango-db restart
 docker exec  --user root ndts service tango-starter restart
 
 
-if [ $2 = "2" ]; then
+docker exec  --user root ndts chown -R tango:tango .
+if [ "$2" = "2" ]; then
     echo "install python-pytango"
     docker exec  --user root ndts /bin/bash -c 'apt-get -qq update; export DEBIAN_FRONTEND=noninteractive; apt-get -qq install -y   python-pytango  python-mysqldb python-setuptools'
 else
     echo "install python3-pytango"
-    if [ "$1" = "debian10" ] || [ "$1" = "ubuntu20.04" ] || [ "$1" = "ubuntu20.10" ]|| [ "$1" = "ubuntu21.04" ] || [ "$1" = "debian11" ] ; then
+    if [ "$1" = "debian10" ] || [ "$1" = "ubuntu20.04" ] || [ "$1" = "ubuntu20.10" ] || [ "$1" = "debian11" ] ; then
 	docker exec --user root ndts /bin/bash -c 'apt-get -qq update; export DEBIAN_FRONTEND=noninteractive; apt-get -qq install -y   python3-tango python3-mysqldb python3-setuptools'
     else
 	docker exec  --user root ndts /bin/bash -c 'apt-get -qq update; export DEBIAN_FRONTEND=noninteractive; apt-get -qq install -y   python3-pytango python3-mysqldb python3-setuptools'
@@ -52,9 +53,11 @@ if [ "$?" -ne "0" ]; then exit -1; fi
 
 if [ "$2" = "2" ]; then
     echo "install python-nxsconfigserver"
+    docker exec  --user root ndts chown -R tango:tango .
     docker exec  --user root ndts python setup.py -q install
 else
     echo "install python3-nxsconfigserver"
+    docker exec  --user root ndts chown -R tango:tango .
     docker exec  --user root ndts python3 setup.py -q install
 fi
 if [ "$?" -ne "0" ]; then exit -1; fi

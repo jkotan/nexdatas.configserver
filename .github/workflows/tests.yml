@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [debian11, debian10, debian9, ubuntu18.04]
+        os: [debian11, debian10, debian9, ubuntu20.04, ubuntu18.04]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -44,6 +44,8 @@ jobs:
         run: .ci/install.sh ${OSYS} 3
       - name: run tests
         run: .ci/run.sh 3
+      - name: Stop the docker
+        run: docker container stop ndts
 
   python2_tests:
     runs-on: ubuntu-latest
@@ -69,3 +71,5 @@ jobs:
         run: .ci/install.sh ${OSYS} 2
       - name: run tests
         run: .ci/run.sh 2
+      - name: Stop the docker
+        run: docker container stop ndts

@@ -7,7 +7,7 @@ RUN apt-get install -y base-passwd
 RUN apt-get -qq update && apt-get -qq install -y libterm-readline-gnu-perl software-properties-common coreutils gnupg2 procps apt-utils curl apt-transport-https gnupg2 ca-certificates wget
 RUN wget --retry-connrefused http://repos.pni-hdri.de/debian_repo.pub.gpg
 RUN apt-key add debian_repo.pub.gpg
-RUN add-apt-repository "deb http://repos.pni-hdri.de/apt/debian buster main" -y
+RUN add-apt-repository "deb http://repos.pni-hdri.de/apt/debian bullseye main" -y
 RUN apt-get -qq update && apt-get -qq -y dist-upgrade
 RUN apt-get -qq update && apt-get -qq install -y default-mysql-client  python3-h5py  python3-sphinx  apt-utils debconf-utils net-tools  omniidl libomniorb4-dev libcos4-dev libomnithread4-dev libzmq3-dev python3-lxml
 RUN useradd -ms /bin/bash tango
