@@ -41,8 +41,8 @@ if [ "$?" != "0" ]; then exit -1; fi
 
 echo "install nxsconfigserver"
 if [ "$2" = "2" ]; then
-    docker exec  --user root ndts python setup.py -q install
+    docker exec  --user root ndts python setup.py install
 else
-    docker exec  --user root ndts python3 setup.py -q install
+    docker exec  --user root ndts python3 setup.py install
 fi
 if [ "$?" != "0" ]; then exit -1; fi
