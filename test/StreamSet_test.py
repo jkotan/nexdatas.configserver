@@ -332,10 +332,7 @@ class StreamSetTest(unittest.TestCase):
             name = self.getRandomString(100)
             sys.stdout = self.mystdout = StringIO()
             sys.stderr = self.mystderr = StringIO()
-            if i % 2:
-                self.streams.info(name)
-            else:
-                self.streams.info(name, std=True)
+            self.streams.info(name, std=True)
             self.assertEqual(self.streams.log_fatal, None)
             self.assertEqual(self.streams.log_error, None)
             self.assertEqual(self.streams.log_warn, None)
@@ -353,7 +350,10 @@ class StreamSetTest(unittest.TestCase):
             name = self.getRandomString(100)
             sys.stdout = self.mystdout = StringIO()
             sys.stderr = self.mystderr = StringIO()
-            self.streams.info(name, std=False)
+            if i % 2 == 0:
+                self.streams.info(name)
+            else:
+                self.streams.info(name, std=False)
             self.assertEqual(self.streams.log_fatal, None)
             self.assertEqual(self.streams.log_error, None)
             self.assertEqual(self.streams.log_warn, None)
@@ -401,10 +401,7 @@ class StreamSetTest(unittest.TestCase):
             name = self.getRandomString(100)
             sys.stdout = self.mystdout = StringIO()
             sys.stderr = self.mystderr = StringIO()
-            if i % 2:
-                self.streams.debug(name)
-            else:
-                self.streams.debug(name, std=True)
+            self.streams.debug(name, std=True)
             self.assertEqual(self.streams.log_fatal, None)
             self.assertEqual(self.streams.log_error, None)
             self.assertEqual(self.streams.log_warn, None)
@@ -422,7 +419,10 @@ class StreamSetTest(unittest.TestCase):
             name = self.getRandomString(100)
             sys.stdout = self.mystdout = StringIO()
             sys.stderr = self.mystderr = StringIO()
-            self.streams.debug(name, std=False)
+            if i % 2:
+                self.streams.debug(name)
+            else:
+                self.streams.debug(name, std=False)
             self.assertEqual(self.streams.log_fatal, None)
             self.assertEqual(self.streams.log_error, None)
             self.assertEqual(self.streams.log_warn, None)
