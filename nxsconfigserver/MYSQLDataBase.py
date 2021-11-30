@@ -350,8 +350,8 @@ class MYSQLDataBase(object):
                 raise
 
             if self._streams:
-                self._streams.debug("MYSQLDataBase::storeComponent()"
-                                    " - store component %s" % name)
+                self._streams.info("MYSQLDataBase::storeComponent()"
+                                   " - store component %s" % name)
 
     def storeDataSource(self, name, xml):
         """ stores the given datasource
@@ -398,8 +398,8 @@ class MYSQLDataBase(object):
                     cursor.close()
                 raise
             if self._streams:
-                self._streams.debug("MYSQLDataBase::storeDataSource() "
-                                    "- store datasource %s" % name)
+                self._streams.info("MYSQLDataBase::storeDataSource() "
+                                   "- store datasource %s" % name)
 
     def storeSelection(self, name, selection):
         """ stores the given selection
@@ -446,8 +446,8 @@ class MYSQLDataBase(object):
                     cursor.close()
                 raise
             if self._streams:
-                self._streams.debug("MYSQLDataBase::storeSelection() "
-                                    "- store selection %s" % name)
+                self._streams.info("MYSQLDataBase::storeSelection() "
+                                   "- store selection %s" % name)
 
     def deleteComponent(self, name):
         """ deletes the given component
@@ -480,8 +480,8 @@ class MYSQLDataBase(object):
                 raise
 
             if self._streams:
-                self._streams.debug("MYSQLDataBase::deleteComponent() "
-                                    "- delete component %s" % name)
+                self._streams.info("MYSQLDataBase::deleteComponent() "
+                                   "- delete component %s" % name)
 
     def deleteSelection(self, name):
         """ deletes the given selection
@@ -514,8 +514,8 @@ class MYSQLDataBase(object):
                 raise
 
             if self._streams:
-                self._streams.debug("MYSQLDataBase::deleteSelection() "
-                                    "- delete selection %s" % name)
+                self._streams.info("MYSQLDataBase::deleteSelection() "
+                                   "- delete selection %s" % name)
 
     def setMandatory(self, name):
         """ sets components as mandatory
@@ -548,7 +548,7 @@ class MYSQLDataBase(object):
                     cursor.close()
                 raise
             if self._streams:
-                self._streams.debug(
+                self._streams.info(
                     "MYSQLDataBase::setMandatory() - component %s" % name)
 
     def unsetMandatory(self, name):
@@ -585,8 +585,8 @@ class MYSQLDataBase(object):
                 raise
 
             if self._streams:
-                self._streams.debug("MYSQLDataBase::unsetMandatory() "
-                                    "- component %s" % name)
+                self._streams.info("MYSQLDataBase::unsetMandatory() "
+                                   "- component %s" % name)
 
     def mandatory(self):
         """ provides mandatory components
@@ -643,8 +643,8 @@ class MYSQLDataBase(object):
                     cursor.close()
                 raise
             if self._streams:
-                self._streams.debug("MYSQLDataBase::deleteDataSource() "
-                                    "- datasource %s" % name)
+                self._streams.info("MYSQLDataBase::deleteDataSource() "
+                                   "- datasource %s" % name)
 
 
 if __name__ == "__main__":

@@ -23,6 +23,10 @@ import sys
 import weakref
 
 
+# (:obj:`bool`) write stream to stdout/ stderrr
+stdflag = False
+
+
 class StreamSet(object):
 
     def __init__(self, streams):
@@ -59,7 +63,7 @@ class StreamSet(object):
             if hasattr(streams(), "log_debug"):
                 self.log_debug = streams().log_debug
 
-    def fatal(self, message, std=True):
+    def fatal(self, message, std=stdflag):
         """ writes fatal error message
 
         :param message: error message
@@ -77,7 +81,7 @@ class StreamSet(object):
         except Exception:
             print(message)
 
-    def error(self, message, std=True):
+    def error(self, message, std=stdflag):
         """ writes error message
 
         :param message: error message
@@ -95,7 +99,7 @@ class StreamSet(object):
         except Exception:
             print(message)
 
-    def warn(self, message, std=True):
+    def warn(self, message, std=stdflag):
         """ writes warning message
 
         :param message: warning message
@@ -113,7 +117,7 @@ class StreamSet(object):
         except Exception:
             print(message)
 
-    def info(self, message, std=True):
+    def info(self, message, std=stdflag):
         """ writes info message
 
         :param message: info message
@@ -131,7 +135,7 @@ class StreamSet(object):
         except Exception:
             print(message)
 
-    def debug(self, message, std=True):
+    def debug(self, message, std=stdflag):
         """ writes debug message
 
         :param message: debug message

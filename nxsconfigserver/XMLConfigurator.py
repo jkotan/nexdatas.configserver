@@ -255,14 +255,14 @@ class XMLConfigurator(object):
         :brief: It opens connection to the give database by JSON string
         """
         args = {}
-        self._streams.debug("XMLConfigurator::open() - Open connection")
+        self._streams.info("XMLConfigurator::open() - Open connection")
         try:
             js = json.loads(self.jsonsettings)
             targs = dict(js.items())
             for k in targs.keys():
                 args[str(k)] = targs[k]
         except Exception:
-            self._streams.debug("%s" % args)
+            self._streams.info("%s" % args)
             args = {}
         self.__mydb.connect(args)
 
@@ -274,7 +274,7 @@ class XMLConfigurator(object):
 
         if self.__mydb:
             self.__mydb.close()
-        self._streams.debug("XMLConfigurator::close() - Close connection")
+        self._streams.info("XMLConfigurator::close() - Close connection")
 
     def components(self, names):
         """ fetches the required components
@@ -960,8 +960,8 @@ class XMLConfigurator(object):
                 self.xmlstring = "<?xml version='1.0' encoding='utf8'?>" + xmls
         else:
             self.xmlstring = ''
-        self._streams.debug("XMLConfigurator::createConfiguration() "
-                            "- Create configuration")
+        self._streams.info("XMLConfigurator::createConfiguration() "
+                           "- Create configuration")
 
 
 if __name__ == "__main__":
