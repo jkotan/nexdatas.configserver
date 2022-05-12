@@ -173,7 +173,7 @@ Client code
     cnfServer = PyTango.DeviceProxy("p00/xmlconfigserver/exp.01")
 
     cnfServer.JSONSettings = \
-	'{"host":"localhost","db":"ndts_p02","read_default_file":"/etc/my.cnf","use_unicode":true}'
+	'{"db":"ndts_p02","read_default_file":"/etc/my.cnf","use_unicode":true}'
 
     # opens DB connection
     cnfServer.Open()
