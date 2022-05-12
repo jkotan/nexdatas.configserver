@@ -29,7 +29,7 @@ def main():
     dpx = PyTango.DeviceProxy(device)
     dpx.set_timeout_millis(25000)
     dpx.Init()
-    dpx.JSONSettings = '{"db": "ndts",  "host":"localhost" ,' \
+    dpx.JSONSettings = '{"db": "ndts",' \
                        + '"read_default_file":"/etc/my.cnf" }'
 
 

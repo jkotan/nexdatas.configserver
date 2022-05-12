@@ -40,7 +40,7 @@ class MYSQLDataBaseTest(unittest.TestCase):
     def __init__(self, methodName):
         unittest.TestCase.__init__(self, methodName)
 
-        self.__args = {'host': u'localhost', 'db': u'nxsconfig',
+        self.__args = {'db': u'nxsconfig',
                        'read_default_file': u'/etc/my.cnf',
                        'use_unicode': True}
         self.__cmps = []
@@ -49,7 +49,7 @@ class MYSQLDataBaseTest(unittest.TestCase):
         from os.path import expanduser
         home = expanduser("~")
         self.__args2 = {
-            'host': u'localhost', 'db': u'nxsconfig',
+            'db': u'nxsconfig',
             'read_default_file': u'%s/.my.cnf' % home, 'use_unicode': True}
 
     # test starter
