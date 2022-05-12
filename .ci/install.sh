@@ -40,7 +40,7 @@ echo "install pytango and nxsconfigserver-db"
 if [ "$2" = "2" ]; then
     docker exec  --user root ndts /bin/bash -c 'apt-get -qq update; apt-get -qq install -y   python-pytango nxsconfigserver-db; sleep 10'
 else
-    if [ "$1" = "debian10" ] || [ "$1" = "ubuntu20.04" ] || [ "$1" = "ubuntu20.10" ] || [ "$1" = "debian11" ] ; then
+    if [ "$1" = "debian10" ] || [ "$1" = "ubuntu22.04" ] ||[ "$1" = "ubuntu20.04" ] || [ "$1" = "ubuntu20.10" ] || [ "$1" = "debian11" ] ; then
 	docker exec --user root ndts /bin/bash -c 'apt-get -qq update; apt-get -qq install -y   python3-tango nxsconfigserver-db; sleep 10'
     else
 	docker exec  --user root ndts /bin/bash -c 'apt-get -qq update; apt-get -qq install -y   python3-pytango nxsconfigserver-db; sleep 10'
