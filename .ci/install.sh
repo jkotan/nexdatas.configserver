@@ -9,8 +9,6 @@ else
     if [ "$1" = "ubuntu20.04" ] || [ "$1" = "ubuntu20.10" ] || [ "$1" = "ubuntu21.04" ] || [ "$1" = "ubuntu22.04" ]; then
 	# docker exec --user root ndts /bin/bash -c 'mkdir -p /var/lib/mysql'
 	# docker exec --user root ndts /bin/bash -c 'chown mysql:mysql /var/lib/mysql'
-	docker exec  --user root ndts /bin/bash -c 'echo -e "[client]\nuser=tango\nhost=127.0.0.1\npassword=rootpw" > /home/tango/.my.cnf'
-	docker exec  --user root ndts /bin/bash -c 'echo -e "[client]\nuser=root\npassword=rootpw" > /root/.my.cnf'
 	docker exec --user root ndts /bin/bash -c 'usermod -d /var/lib/mysql/ mysql'
     fi
     # docker exec  --user root ndts /bin/bash -c '$(service mysql start &) && sleep 30'
@@ -23,10 +21,12 @@ if [ "$?" != "0" ]; then exit 255; fi
 
 if [ "$1" = "ubuntu20.04" ] || [ "$1" = "ubuntu20.10" ] || [ "$1" = "ubuntu21.04" ] || [ "$1" = "ubuntu21.10" ] || [ "$1" = "ubuntu22.04" ]; then
     # docker exec  --user tango ndts /bin/bash -c '/usr/lib/tango/DataBaseds 2 -ORBendPoint giop:tcp::10000  &'
-    docker exec  --user root ndts /etc/init.d/tango-db  restart
-else
-    docker exec  --user root ndts service tango-db restart
+    sudo docker exec  --user root ndts /bin/bash -c 'echo -e "[client]\nuser=tango\nhost=127.0.0.1\npassword=rootpw" > /var/lib/tango/.my.cnf'
+    # docker exec  --user root ndts /bin/bash -c 'echo -e "[client]\nuser=tango\nhost=127.0.0.1\npassword=rootpw" > /home/tango/.my.cnf'
+    docker exec  --user root ndts /bin/bash -c 'echo -e "[client]\nuser=root\npassword=rootpw" > /root/.my.cnf'
 fi
+docker exec  --user root ndts service tango-db restart
+if [ "$?" != "0" ]; then exit 255; fi
 
 
 echo "install tango servers"
@@ -60,11 +60,3 @@ else
     docker exec --user root ndts python3 setup.py  install
 fi
 if [ "$?" != "0" ]; then exit 255; fi
-
-if [ "$1" = "ubuntu20.04" ] || [ "$1" = "ubuntu20.10" ] || [ "$1" = "ubuntu21.04" ] || [ "$1" = "ubuntu21.10" ] || [ "$1" = "ubuntu22.04" ]; then
-    # docker exec  --user tango ndts /bin/bash -c '/usr/lib/tango/DataBaseds 2 -ORBendPoint giop:tcp::10000  &'
-    sudo docker exec  --user root ndts /bin/bash -c 'echo -e "[client]\nuser=tango\nhost=127.0.0.1\npassword=rootpw" > /var/lib/tango/.my.cnf'
-    docker exec --user root ndts service mysql restart
-    docker exec --user root ndts service tango-db restart
-    docker exec --user root ndts service tango-starter restart
-fi
