@@ -562,8 +562,9 @@ class Merger(object):
         :rtype: :obj:`str`
         """
         if self.__root is not None:
-            return _tostr(
-                et.tostring(self.__root, encoding='unicode', method='xml'))
+            return "<?xml version='1.0' encoding='utf8'?>" + \
+                _tostr(
+                    et.tostring(self.__root, encoding='unicode', method='xml'))
 
     def merge(self):
         """ performs the merging operation
