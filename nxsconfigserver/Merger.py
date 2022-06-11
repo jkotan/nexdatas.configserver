@@ -57,7 +57,7 @@ def _toxml(node):
     :returns: xml content string
     :rtype: :obj:`str`
     """
-    xml = _tostr(et.tostring(node, encoding='utf8', method='xml'))
+    xml = _tostr(et.tostring(node, encoding='unicode', method='xml'))
     if xml.startswith("<?xml version='1.0' encoding='utf8'?>"):
         xml = str(xml[38:])
     return xml
@@ -563,7 +563,7 @@ class Merger(object):
         """
         if self.__root is not None:
             return _tostr(
-                et.tostring(self.__root, encoding='utf8', method='xml'))
+                et.tostring(self.__root, encoding='unicode', method='xml'))
 
     def merge(self):
         """ performs the merging operation

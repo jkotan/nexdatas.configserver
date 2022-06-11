@@ -60,7 +60,7 @@ def _toxml(node):
     :returns: xml content string
     :rtype: :obj:`str`
     """
-    xml = _tostr(et.tostring(node, encoding='utf8', method='xml'))
+    xml = _tostr(et.tostring(node, encoding='unicode', method='xml'))
     if xml.startswith("<?xml version='1.0' encoding='utf8'?>"):
         xml = str(xml[38:])
     return xml
@@ -952,7 +952,7 @@ class XMLConfigurator(object):
             else:
                 reparsed = et.fromstring(
                     cnfMerged, parser=XMLParser(collect_ids=False))
-            xmls = _tostr(etree.tostring(reparsed, encoding='utf8',
+            xmls = _tostr(etree.tostring(reparsed, encoding='unicode',
                                          method='xml', pretty_print=True))
             if xmls.startswith("<?xml"):
                 self.xmlstring = xmls

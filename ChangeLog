@@ -1,3 +1,8 @@
+2022-06-11 Jan Kotanski <jankotan@gmail.com>
+	* fix double utf8 encoding problem
+	* add tests for jammy
+	* tagged as v2.14.1
+
 2022-05-12 Jan Kotanski <jankotan@gmail.com>
 	* remove default mysql localhost
 	* add tests for jammy
