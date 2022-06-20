@@ -955,9 +955,8 @@ class XMLConfigurator(object):
             else:
                 reparsed = et.fromstring(
                     cnfMerged, parser=XMLParser(collect_ids=False))
-            xmls = "<?xml version='1.0' encoding='utf8'?>" + \
-                _tostr(etree.tostring(reparsed, encoding='unicode',
-                                      method='xml', pretty_print=True))
+            xmls = _tostr(etree.tostring(reparsed, encoding='unicode',
+                                         method='xml', pretty_print=True))
             if xmls.startswith("<?xml"):
                 self.xmlstring = xmls
             else:
