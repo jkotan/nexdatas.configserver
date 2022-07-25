@@ -7,12 +7,12 @@ Welcome to NeXuS Configuration Server's documentation!
 |Pypi Version|
 |Python Versions|
 
-.. |github workflow| image:: https://github.com/nexdatas/configserver/actions/workflows/tests.yml/badge.svg
-   :target: https://github.com/nexdatas/configserver/actions
+.. |github workflow| image:: https://github.com/nexdatas/nxsconfigserver/actions/workflows/tests.yml/badge.svg
+   :target: https://github.com/nexdatas/nxsconfigserver/actions
    :alt:
 
 .. |docs| image:: https://img.shields.io/badge/Documentation-webpages-ADD8E6.svg
-   :target: https://nexdatas.github.io/configserver/index.html
+   :target: https://nexdatas.github.io/nxsconfigserver/index.html
    :alt:
 
 .. |Pypi Version| image:: https://img.shields.io/pypi/v/nxsconfigserver.svg
@@ -32,10 +32,10 @@ on a MySQL database. It allows to store XML configuration datasources
 and components. It also gives possibility to select mandatory components
 and perform the process of component merging.
 
-Tango Server API: https://nexdatas.github.io/configserver/doc_html
+Tango Server API: https://nexdatas.github.io/nxsconfigserver/doc_html
 
-| Source code: https://github.com/nexdatas/configserver/
-| Web page: https://nexdatas.github.io/configserver/
+| Source code: https://github.com/nexdatas/nxsconfigserver/
+| Web page: https://nexdatas.github.io/nxsconfigserver/
 | NexDaTaS Web page: https://nexdatas.github.io
 
 ------------
@@ -51,8 +51,8 @@ From sources
 
 Download the latest version of NeXuS Configuration Server from
 
-|    https://github.com/nexdatas/configserver/
-|    https://github.com/nexdatas/configserver-db/
+|    https://github.com/nexdatas/nxsconfigserver/
+|    https://github.com/nexdatas/nxsconfigserver-db/
 
 Extract the sources and run
 
