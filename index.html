@@ -4,19 +4,17 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Welcome to NeXuS Configuration Server’s documentation! &#8212; NXSConfigServer 2.13.0 documentation</title>
-    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <title>Welcome to NeXuS Configuration Server&#39;s documentation! &#8212; NXSConfigServer 2.14.2 documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -39,7 +37,7 @@
         </button>
         <a class="navbar-brand" href="#">
           NXSConfigServer</a>
-        <span class="navbar-text navbar-version pull-left"><b>2.13</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.14</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -80,10 +78,13 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Welcome to NeXuS Configuration Server’s documentation!</a><ul>
+<li><a class="reference internal" href="#">Welcome to NeXuS Configuration Server's documentation!</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a><ul>
 <li><a class="reference internal" href="#from-sources">From sources</a></li>
-<li><a class="reference internal" href="#debian-packages">Debian packages</a></li>
+<li><a class="reference internal" href="#debian-packages">Debian packages</a><ul>
+<li><a class="reference internal" href="#from-pip">From pip</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#setting-nexus-configuration-server">Setting NeXus Configuration Server</a></li>
 </ul>
 </li>
@@ -129,54 +130,23 @@
 
 <div class="container">
   <div class="row">
-      <div class="col-md-3">
-        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Welcome to NeXuS Configuration Server’s documentation!</a><ul>
-<li><a class="reference internal" href="#installation">Installation</a><ul>
-<li><a class="reference internal" href="#from-sources">From sources</a></li>
-<li><a class="reference internal" href="#debian-packages">Debian packages</a></li>
-<li><a class="reference internal" href="#setting-nexus-configuration-server">Setting NeXus Configuration Server</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#description">Description</a></li>
-<li><a class="reference internal" href="#client-code">Client code</a></li>
-<li><a class="reference internal" href="#configuration-variables">Configuration Variables</a></li>
-<li><a class="reference internal" href="#contents">Contents:</a></li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
-</ul>
-
-  <li>
-    <a href="nxsconfigserver.html" title="Next Chapter: nxsconfigserver package"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">nxsconfigserv... &raquo;</span>
-    </a>
-  </li>
-<div id="sourcelink">
-  <a href="_sources/index.rst.txt"
-     rel="nofollow">Source</a>
-</div>
-<form action="search.html" method="get">
- <div class="form-group">
-  <input type="text" name="q" class="form-control" placeholder="Search" />
- </div>
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
-</form>
-        </div>
-      </div>
-    <div class="col-md-9 content">
+    <div class="col-md-12 content">
       
   <div class="section" id="welcome-to-nexus-configuration-server-s-documentation">
-<h1>Welcome to NeXuS Configuration Server’s documentation!<a class="headerlink" href="#welcome-to-nexus-configuration-server-s-documentation" title="Permalink to this headline">¶</a></h1>
+<h1>Welcome to NeXuS Configuration Server's documentation!<a class="headerlink" href="#welcome-to-nexus-configuration-server-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://github.com/nexdatas/nxsconfigserver/actions"><img alt="" src="https://github.com/nexdatas/nxsconfigserver/actions/workflows/tests.yml/badge.svg" /></a>
+<a class="reference external" href="https://nexdatas.github.io/nxsconfigserver/index.html"><img alt="" src="https://img.shields.io/badge/Documentation-webpages-ADD8E6.svg" /></a>
+<a class="reference external" href="https://pypi.python.org/pypi/nxsconfigserver"><img alt="" src="https://img.shields.io/pypi/v/nxsconfigserver.svg" /></a>
+<a class="reference external" href="https://pypi.python.org/pypi/nxsconfigserver/"><img alt="" src="https://img.shields.io/pypi/pyversions/nxsconfigserver.svg" /></a></p>
 <p>Authors: Jan Kotanski, Eugen Wintersberger, Halil Pasic</p>
 <p>NeXuS Configuration Server is a Tango Server with its implementation based
 on a MySQL database. It allows to store XML configuration datasources
 and components. It also gives possibility to select mandatory components
 and perform the process of component merging.</p>
-<p>Tango Server API: <a class="reference external" href="https://nexdatas.github.io/configserver/doc_html">https://nexdatas.github.io/configserver/doc_html</a></p>
+<p>Tango Server API: <a class="reference external" href="https://nexdatas.github.io/nxsconfigserver/doc_html">https://nexdatas.github.io/nxsconfigserver/doc_html</a></p>
 <div class="line-block">
-<div class="line">Source code: <a class="reference external" href="https://github.com/nexdatas/configserver/">https://github.com/nexdatas/configserver/</a></div>
-<div class="line">Web page: <a class="reference external" href="https://nexdatas.github.io/configserver/">https://nexdatas.github.io/configserver/</a></div>
+<div class="line">Source code: <a class="reference external" href="https://github.com/nexdatas/nxsconfigserver/">https://github.com/nexdatas/nxsconfigserver/</a></div>
+<div class="line">Web page: <a class="reference external" href="https://nexdatas.github.io/nxsconfigserver/">https://nexdatas.github.io/nxsconfigserver/</a></div>
 <div class="line">NexDaTaS Web page: <a class="reference external" href="https://nexdatas.github.io">https://nexdatas.github.io</a></div>
 </div>
 <div class="section" id="installation">
@@ -189,8 +159,8 @@ and perform the process of component merging.</p>
 <h3>From sources<a class="headerlink" href="#from-sources" title="Permalink to this headline">¶</a></h3>
 <p>Download the latest version of NeXuS Configuration Server from</p>
 <div class="line-block">
-<div class="line"><a class="reference external" href="https://github.com/nexdatas/configserver/">https://github.com/nexdatas/configserver/</a></div>
-<div class="line"><a class="reference external" href="https://github.com/nexdatas/configserver-db/">https://github.com/nexdatas/configserver-db/</a></div>
+<div class="line"><a class="reference external" href="https://github.com/nexdatas/nxsconfigserver/">https://github.com/nexdatas/nxsconfigserver/</a></div>
+<div class="line"><a class="reference external" href="https://github.com/nexdatas/nxsconfigserver-db/">https://github.com/nexdatas/nxsconfigserver-db/</a></div>
 </div>
 <p>Extract the sources and run</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python setup.py install
@@ -204,15 +174,15 @@ and perform the process of component merging.</p>
 </div>
 <div class="section" id="debian-packages">
 <h3>Debian packages<a class="headerlink" href="#debian-packages" title="Permalink to this headline">¶</a></h3>
-<p>Debian Jessie (and Wheezy) packages can be found in the HDRI repository.</p>
+<p>Debian Buster (and Stretch) as well as Ubuntu Focal (and Bionic) packages can be found in the HDRI repository.</p>
 <p>To install the debian packages, add the PGP repository key</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> sudo su
 <span class="gp">$</span> wget -q -O - http://repos.pni-hdri.de/debian_repo.pub.gpg <span class="p">|</span> apt-key add -
 </pre></div>
 </div>
-<p>and then download the corresponding source list</p>
+<p>and then download the corresponding source list, e.g. for buster</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> /etc/apt/sources.list.d
-<span class="gp">$</span> wget http://repos.pni-hdri.de/jessie-pni-hdri.list
+<span class="gp">$</span> wget http://repos.pni-hdri.de/buster-pni-hdri.list
 </pre></div>
 </div>
 <p>Finally, for python2 packages</p>
@@ -231,6 +201,23 @@ and perform the process of component merging.</p>
 <p>and the NXSConfigServer tango server (from 2.10.0)</p>
 <blockquote>
 <div>$ apt-get install nxsconfigserver3</div></blockquote>
+<div class="section" id="from-pip">
+<h4>From pip<a class="headerlink" href="#from-pip" title="Permalink to this headline">¶</a></h4>
+<p>To install it from pip you need pymysqldb e.g.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python3 -m venv myvenv
+<span class="gp">$</span> . myvenv/bin/activate
+
+<span class="gp">$</span> pip install pymysqldb
+
+<span class="gp">$</span> pip install nxsconfigserver
+</pre></div>
+</div>
+<p>Moreover it is also good to install</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> pip install pytango
+<span class="gp">$</span> pip install nxstools
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="setting-nexus-configuration-server">
 <h3>Setting NeXus Configuration Server<a class="headerlink" href="#setting-nexus-configuration-server" title="Permalink to this headline">¶</a></h3>
@@ -283,7 +270,7 @@ attribute.</p>
 <span class="n">cnfServer</span> <span class="o">=</span> <span class="n">PyTango</span><span class="o">.</span><span class="n">DeviceProxy</span><span class="p">(</span><span class="s2">&quot;p00/xmlconfigserver/exp.01&quot;</span><span class="p">)</span>
 
 <span class="n">cnfServer</span><span class="o">.</span><span class="n">JSONSettings</span> <span class="o">=</span> \
-    <span class="s1">&#39;{&quot;host&quot;:&quot;localhost&quot;,&quot;db&quot;:&quot;ndts_p02&quot;,&quot;read_default_file&quot;:&quot;/etc/my.cnf&quot;,&quot;use_unicode&quot;:true}&#39;</span>
+    <span class="s1">&#39;{&quot;db&quot;:&quot;ndts_p02&quot;,&quot;read_default_file&quot;:&quot;/etc/my.cnf&quot;,&quot;use_unicode&quot;:true}&#39;</span>
 
 <span class="c1"># opens DB connection</span>
 <span class="n">cnfServer</span><span class="o">.</span><span class="n">Open</span><span class="p">()</span>
@@ -442,7 +429,7 @@ attribute.</p>
 <div class="section" id="configuration-variables">
 <h1>Configuration Variables<a class="headerlink" href="#configuration-variables" title="Permalink to this headline">¶</a></h1>
 <p>Values of configuration variables can be also define inside the component xmls.
-Let’s consider two following components:</p>
+Let's consider two following components:</p>
 <p><em>mydetector</em> with a general detector transformation group</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;definition&gt;</span>
   <span class="nt">&lt;group</span> <span class="na">type=</span><span class="s">&#39;NXentry&#39;</span> <span class="na">name=</span><span class="s">&#39;entry&#39;</span><span class="nt">&gt;</span>
@@ -565,7 +552,7 @@ Let’s consider two following components:</p>
         &copy; Copyright 2012-2017 DESY, Jan Kotanski &lt;jkotan@mail.desy.de&gt;
 
 GNU GENERAL PUBLIC LICENSE, version 3.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.9.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.<br/>
     </p>
   </div>
 </footer>
