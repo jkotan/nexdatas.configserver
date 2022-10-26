@@ -9694,7 +9694,7 @@ ds.result = nxsconfigserver.__version__</result></datasource>"""
             '</datasource>'
         ]
 
-        odsname = "mcs_test_datasource"
+        odsname = "mcs_test.datasource"
         avds = el.availableDataSources()
         self.assertTrue(isinstance(avds, list))
         dsnp = len(xds)

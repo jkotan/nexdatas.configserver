@@ -731,7 +731,7 @@ class XMLConfigurator(object):
             dsubc = ''
             try:
                 finder = re.finditer(
-                    r"[\w]+",
+                    r"[\w.]+",
                     component[(index + len(label) + 2):])
                 if sys.version_info > (3,):
                     subc = finder.__next__().group(0)
