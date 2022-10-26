@@ -1,5 +1,5 @@
 2022-06-11 Jan Kotanski <jankotan@gmail.com>
-	* allow to use "." in datasource names ($43)
+	* allow to use "." in datasource names (#43)
 	* tagged as v2.14.2
 
 2022-06-11 Jan Kotanski <jankotan@gmail.com>
