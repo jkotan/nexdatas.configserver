@@ -31,18 +31,21 @@ def run(argv):
     :param argv: command-line arguments
     :type argv: :obj:`list` <:obj:`str`>
     """
-    import PyTango
+    try:
+        import tango
+    except Exception:
+        import PyTango as tango
     from .NXSConfigServer import NXSConfigServer as NXSCnfSrv
     from .NXSConfigServer import NXSConfigServerClass as NXSCnfSrvClass
     try:
-        pyutil = PyTango.Util(argv)
+        pyutil = tango.Util(argv)
         pyutil.add_class(NXSCnfSrvClass, NXSCnfSrv)
 
-        util = PyTango.Util.instance()
+        util = tango.Util.instance()
         util.server_init()
         util.server_run()
 
-    except PyTango.DevFailed as ex:
+    except tango.DevFailed as ex:
         print('-------> Received a DevFailed exception: %s' % ex)
     except Exception as ex:
         print('-------> An unforeseen exception occured.... %s' % ex)

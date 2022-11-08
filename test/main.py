@@ -29,7 +29,10 @@ import Errors_test
 import StreamSet_test
 
 try:
-    __import__("PyTango")
+    try:
+        __import__("tango")
+    except Exception:
+        __import__("PyTango")
     # if module PyTango avalable
     PYTANGO_AVAILABLE = True
 except ImportError as e:

@@ -19,14 +19,17 @@
 # \file simpleClient.py
 # first example of simple client
 
-import PyTango
+try:
+    import tango
+except Exception:
+    import PyTango as tango
 
 
 # the main function
 def main():
     device = "p09/mcs/r228"
 
-    dpx = PyTango.DeviceProxy(device)
+    dpx = tango.DeviceProxy(device)
     dpx.set_timeout_millis(25000)
     dpx.Init()
     dpx.JSONSettings = '{"db": "ndts",' \

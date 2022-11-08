@@ -78,11 +78,11 @@ class XMLConfigurator(object):
         """ constructor
 
         :param server: NXSConfigServer instance
-        :type server: :class:`PyTango.Device_4Impl`
+        :type server: :class:`tango.Device_4Impl`
         :brief: It allows to construct XML configurer object
 
         """
-        #: (:class:`StreamSet` or :class:`PyTango.Device_4Impl`) stream set
+        #: (:class:`StreamSet` or :class:`tango.Device_4Impl`) stream set
         self._streams = StreamSet(weakref.ref(server) if server else None)
         #: (:obj:`str`) XML config string
         self.xmlstring = ""
@@ -125,7 +125,7 @@ class XMLConfigurator(object):
         #: (:obj:`str`) version label
         self.versionLabel = "XCS"
 
-        #: (:class:`PyTango.Device_4Impl`) Tango server
+        #: (:class:`tango.Device_4Impl`) Tango server
         self.__server = server
 
     @classmethod

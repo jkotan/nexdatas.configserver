@@ -32,7 +32,10 @@
 
 """ Configuration Server for Nexus Data Writer """
 
-import PyTango
+try:
+    import tango
+except Exception:
+    import PyTango as tango
 
 from .XMLConfigurator import XMLConfigurator as XMLC
 
@@ -41,7 +44,7 @@ from .XMLConfigurator import XMLConfigurator as XMLC
 # ==================================================================
 
 
-class NXSConfigServer(PyTango.Device_4Impl):
+class NXSConfigServer(tango.Device_4Impl):
 
     """   NXSConfigServer Class Description:
 
@@ -60,7 +63,7 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :param name: device name
         :type name: :obj:`str`
         """
-        PyTango.Device_4Impl.__init__(self, cl, name)
+        tango.Device_4Impl.__init__(self, cl, name)
         self.debug_stream("In __init__()")
         #: (:class:`nxsconfigserver.XMLConfigutator.XMLConfigutator`) \
         #:    xml configurator instance
@@ -76,14 +79,14 @@ class NXSConfigServer(PyTango.Device_4Impl):
                 self.xmlc.close()
             del self.xmlc
             self.xmlc = None
-        self.set_state(PyTango.DevState.OFF)
+        self.set_state(tango.DevState.OFF)
 
     def init_device(self):
         """ Device initialization
         """
         self.debug_stream("In init_device()")
         self.xmlc = XMLC(self)
-        self.set_state(PyTango.DevState.ON)
+        self.set_state(tango.DevState.ON)
         self.get_device_properties(self.get_device_class())
         self.xmlc.versionLabel = self.VersionLabel
 
@@ -106,7 +109,7 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """ Read XMLString attribute
 
         :param attr: xml string attribute
-        :type attr: :class:`PyTango.Attribute`
+        :type attr: :class:`tango.Attribute`
         """
         self.debug_stream("In read_XMLString()")
         attr.set_value(self.xmlc.xmlstring)
@@ -115,7 +118,7 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """ Write XMLString attribute
 
         :param attr: xml string attribute
-        :type attr: :class:`PyTango.Attribute`
+        :type attr: :class:`tango.Attribute`
         """
         self.debug_stream("In write_XMLString()")
         self.xmlc.xmlstring = attr.get_write_value()
@@ -126,8 +129,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -135,7 +138,7 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """ Read Selection attribute
 
         :param attr: selection attribute
-        :type attr: :class:`PyTango.Attribute`
+        :type attr: :class:`tango.Attribute`
         """
         self.debug_stream("In read_Selection()")
         attr.set_value(self.xmlc.selection)
@@ -144,7 +147,7 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """ Write Selection attribute
 
         :param attr: selection attribute
-        :type attr: :class:`PyTango.Attribute`
+        :type attr: :class:`tango.Attribute`
         """
         self.debug_stream("In write_Selection()")
         self.xmlc.selection = attr.get_write_value()
@@ -155,8 +158,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -164,7 +167,7 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """ Read JSONSettings attribute
 
         :param attr: jsonsettings attribute
-        :type attr: :class:`PyTango.Attribute`
+        :type attr: :class:`tango.Attribute`
         """
         self.debug_stream("In read_JSONSettings()")
         attr.set_value(self.xmlc.jsonsettings)
@@ -173,7 +176,7 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """ Read JSONSettings attribute
 
         :param attr: jsonsettings attribute
-        :type attr: :class:`PyTango.Attribute`
+        :type attr: :class:`tango.Attribute`
         """
         self.debug_stream("In write_JSONSettings()")
         if self.is_JSONSettings_write_allowed():
@@ -189,8 +192,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.OPEN,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.OPEN,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -198,7 +201,7 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """ Read STEPDataSources attribute
 
         :param attr: step datasources attribute
-        :type attr: :class:`PyTango.Attribute`
+        :type attr: :class:`tango.Attribute`
         """
         self.debug_stream("In read_STEPDataSources()")
         attr.set_value(self.xmlc.stepdatasources or "")
@@ -207,7 +210,7 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """ Write STEPDataSources attribute
 
         :param attr: step datasources attribute
-        :type attr: :class:`PyTango.Attribute`
+        :type attr: :class:`tango.Attribute`
         """
         self.debug_stream("In write_STEPDataSources()")
         if self.is_STEPDataSources_write_allowed():
@@ -223,7 +226,7 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.RUNNING]:
             return False
         return True
 
@@ -231,7 +234,7 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """ Read LinkDataSources attribute
 
         :param attr: link datasources attribute
-        :type attr: :class:`PyTango.Attribute`
+        :type attr: :class:`tango.Attribute`
         """
         self.debug_stream("In read_LinkDataSources()")
         attr.set_value(self.xmlc.linkdatasources or "")
@@ -240,7 +243,7 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """ Write LinkDataSources attribute
 
         :param attr: link datasources attribute
-        :type attr: :class:`PyTango.Attribute`
+        :type attr: :class:`tango.Attribute`
         """
         self.debug_stream("In write_LinkDataSources()")
         if self.is_LinkDataSources_write_allowed():
@@ -256,7 +259,7 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.RUNNING]:
             return False
         return True
 
@@ -264,7 +267,7 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """ Read CanFailDataSources attribute
 
         :param attr: step datasources attribute
-        :type attr: :class:`PyTango.Attribute`
+        :type attr: :class:`tango.Attribute`
         """
         self.debug_stream("In read_CanFailDataSources()")
         attr.set_value(self.xmlc.canfaildatasources or "")
@@ -273,7 +276,7 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """ Write CanFailDataSources attribute
 
         :param attr: step datasources attribute
-        :type attr: :class:`PyTango.Attribute`
+        :type attr: :class:`tango.Attribute`
         """
         self.debug_stream("In write_CanFailDataSources()")
         if self.is_CanFailDataSources_write_allowed():
@@ -289,7 +292,7 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.RUNNING]:
             return False
         return True
 
@@ -297,7 +300,7 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """ Read Version attribute
 
         :param attr: version attribute
-        :type attr: :class:`PyTango.Attribute`
+        :type attr: :class:`tango.Attribute`
         """
         self.debug_stream("In read_Version()")
 
@@ -309,7 +312,7 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """ Read Variables attribute
 
         :param attr: variables attribute
-        :type attr: :class:`PyTango.Attribute`
+        :type attr: :class:`tango.Attribute`
         """
         self.debug_stream("In read_Variables()")
         attr.set_value(self.xmlc.variables)
@@ -318,7 +321,7 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """ Write Variables attribute
 
         :param attr: variables attribute
-        :type attr: :class:`PyTango.Attribute`
+        :type attr: :class:`tango.Attribute`
         """
         self.debug_stream("In write_Variables()")
         self.xmlc.variables = attr.get_write_value()
@@ -329,7 +332,7 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.RUNNING]:
             return False
         return True
 
@@ -346,12 +349,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In Open()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             self.xmlc.open()
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.ON)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.ON)
 
     def is_Open_allowed(self):
         """ Open command State Machine
@@ -359,7 +362,7 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.RUNNING]:
             return False
         return True
 
@@ -371,12 +374,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         self.debug_stream("In Close()")
 
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             self.xmlc.close()
-            self.set_state(PyTango.DevState.ON)
+            self.set_state(tango.DevState.ON)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.ON)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.ON)
 
     def is_Close_allowed(self):
         """ Close command State Machine
@@ -384,8 +387,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -401,12 +404,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In Components()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             argout = self.xmlc.components(argin)
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
         return argout
 
@@ -416,8 +419,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -433,12 +436,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In Selections()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             argout = self.xmlc.selections(argin)
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
         return argout
 
@@ -448,8 +451,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -465,12 +468,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In InstantiateComponents()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             argout = self.xmlc.instantiatedComponents(argin)
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
         return argout
 
@@ -480,8 +483,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -497,12 +500,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In DataSources()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             argout = self.xmlc.dataSources(argin)
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
         return argout
 
@@ -512,8 +515,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -527,12 +530,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In AvailableComponents()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             argout = self.xmlc.availableComponents()
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
         return argout
 
@@ -542,8 +545,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -557,12 +560,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In AvailableSelections()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             argout = self.xmlc.availableSelections()
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
         return argout
 
@@ -572,8 +575,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -587,12 +590,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In AvailableDataSources()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             argout = self.xmlc.availableDataSources()
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
         return argout
 
@@ -602,8 +605,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -617,12 +620,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In StoreComponent()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             self.xmlc.storeComponent(argin)
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
     def is_StoreComponent_allowed(self):
         """ StoreComponent command State Machine
@@ -630,8 +633,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -645,12 +648,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In StoreSelection()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             self.xmlc.storeSelection(argin)
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
     def is_StoreSelection_allowed(self):
         """ StoreSelection command State Machine
@@ -658,8 +661,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -673,12 +676,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In StoreDataSource()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             self.xmlc.storeDataSource(argin)
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
     def is_StoreDataSource_allowed(self):
         """ StoreDataSource command State Machine
@@ -686,8 +689,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -702,12 +705,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In CreateConfiguration()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             self.xmlc.createConfiguration(argin)
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
     def is_CreateConfiguration_allowed(self):
         """ CreateConfiguration command State Machine
@@ -715,8 +718,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -730,12 +733,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In DeleteComponent()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             self.xmlc.deleteComponent(argin)
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
     def is_DeleteComponent_allowed(self):
         """ DeleteComponent command State Machine
@@ -743,8 +746,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -758,12 +761,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In DeleteSelection()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             self.xmlc.deleteSelection(argin)
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
     def is_DeleteSelection_allowed(self):
         """ DeleteSelection command State Machine
@@ -771,8 +774,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -787,12 +790,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         self.debug_stream("In DeleteDataSource()")
         #    Add your own code here
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             self.xmlc.deleteDataSource(argin)
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
     def is_DeleteDataSource_allowed(self):
         """ DeleteDataSource command State Machine
@@ -800,8 +803,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -815,12 +818,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In SetComponentDataSources()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             self.xmlc.setComponentDataSources(argin)
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
     def is_SetComponentDataSources_allowed(self):
         """ SetComponentDataSources command State Machine
@@ -828,8 +831,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -843,12 +846,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In SetMandatoryComponents()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             self.xmlc.setMandatoryComponents(argin)
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
     def is_SetMandatoryComponents_allowed(self):
         """ SetMandatoryComponents command State Machine
@@ -856,8 +859,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -872,12 +875,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         self.debug_stream("In MandatoryComponents()")
 
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             argout = self.xmlc.mandatoryComponents()
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
         return argout
 
     def is_MandatoryComponents_allowed(self):
@@ -886,8 +889,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -902,12 +905,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In UnsetMandatoryComponents()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             self.xmlc.unsetMandatoryComponents(argin)
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
     def is_UnsetMandatoryComponents_allowed(self):
         """ UnsetMandatoryComponents command State Machine
@@ -915,8 +918,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -932,12 +935,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In ComponentDataSources()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             argout = self.xmlc.componentDataSources(argin)
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
         return argout
 
@@ -947,8 +950,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -964,12 +967,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In ComponentsDataSources()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             argout = self.xmlc.componentsDataSources(argin)
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
         return argout
 
@@ -979,8 +982,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -996,12 +999,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In ComponentsVariables()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             argout = self.xmlc.componentsVariables(argin)
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
         return argout
 
@@ -1011,8 +1014,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -1028,12 +1031,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In ComponentVariables()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             argout = self.xmlc.componentVariables(argin)
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
         return argout
 
@@ -1043,8 +1046,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -1060,12 +1063,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In Merge()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             argout = self.xmlc.merge(argin)
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
         return argout
 
     def is_Merge_allowed(self):
@@ -1074,8 +1077,8 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
@@ -1092,12 +1095,12 @@ class NXSConfigServer(PyTango.Device_4Impl):
         """
         self.debug_stream("In DependentComponents()")
         try:
-            self.set_state(PyTango.DevState.RUNNING)
+            self.set_state(tango.DevState.RUNNING)
             argout = self.xmlc.dependentComponents(argin)
-            self.set_state(PyTango.DevState.OPEN)
+            self.set_state(tango.DevState.OPEN)
         finally:
-            if self.get_state() == PyTango.DevState.RUNNING:
-                self.set_state(PyTango.DevState.OPEN)
+            if self.get_state() == tango.DevState.RUNNING:
+                self.set_state(tango.DevState.OPEN)
 
         return argout
 
@@ -1107,129 +1110,129 @@ class NXSConfigServer(PyTango.Device_4Impl):
         :returns: True if the operation allowed
         :rtype: :obj:`bool`
         """
-        if self.get_state() in [PyTango.DevState.ON,
-                                PyTango.DevState.RUNNING]:
+        if self.get_state() in [tango.DevState.ON,
+                                tango.DevState.RUNNING]:
             return False
         return True
 
 
-class NXSConfigServerClass(PyTango.DeviceClass):
+class NXSConfigServerClass(tango.DeviceClass):
 
     """ NXSConfigServerClass class definition
     """
 
     #: (:obj:`dict` <:obj:`str`, \
-    #:       [ :obj:`str`, :class:`PyTango.CmdArgType`, \
+    #:       [ :obj:`str`, :class:`tango.CmdArgType`, \
     #:       [ :obj:`list` <:obj:`int`> ] ] > ) Class Properties
     class_property_list = {
     }
 
     #: (:obj:`dict` <:obj:`str`, \
-    #:       [ :obj:`str`, :class:`PyTango.CmdArgType`, \
+    #:       [ :obj:`str`, :class:`tango.CmdArgType`, \
     #:       [ :obj:`list` <:obj:`int`> ] ] > ) Device Properties
     device_property_list = {
         'VersionLabel':
-        [PyTango.DevString,
+        [tango.DevString,
          "version label",
          ["XCS"]],
     }
 
     #: (:obj:`dict` <:obj:`str`, \
-    #:       [[ :class:`PyTango.CmdArgType`, :obj:`str`]] >)
+    #:       [[ :class:`tango.CmdArgType`, :obj:`str`]] >)
     #:       Command definitions
     cmd_list = {
         'Open':
-            [[PyTango.DevVoid, ""],
-             [PyTango.DevVoid, ""]],
+            [[tango.DevVoid, ""],
+             [tango.DevVoid, ""]],
         'Close':
-            [[PyTango.DevVoid, ""],
-             [PyTango.DevVoid, ""]],
+            [[tango.DevVoid, ""],
+             [tango.DevVoid, ""]],
         'Components':
-            [[PyTango.DevVarStringArray, "list of component names"],
-             [PyTango.DevVarStringArray, "list of required components"]],
+            [[tango.DevVarStringArray, "list of component names"],
+             [tango.DevVarStringArray, "list of required components"]],
         'Selections':
-            [[PyTango.DevVarStringArray, "list of selection names"],
-             [PyTango.DevVarStringArray, "list of required selections"]],
+            [[tango.DevVarStringArray, "list of selection names"],
+             [tango.DevVarStringArray, "list of required selections"]],
         'InstantiatedComponents':
-            [[PyTango.DevVarStringArray, "list of component names"],
-             [PyTango.DevVarStringArray, "list of instantiated components"]],
+            [[tango.DevVarStringArray, "list of component names"],
+             [tango.DevVarStringArray, "list of instantiated components"]],
         'DataSources':
-            [[PyTango.DevVarStringArray, "list of DataSource names"],
-             [PyTango.DevVarStringArray, "list of required DataSources"]],
+            [[tango.DevVarStringArray, "list of DataSource names"],
+             [tango.DevVarStringArray, "list of required DataSources"]],
         'AvailableComponents':
-            [[PyTango.DevVoid, ""],
-             [PyTango.DevVarStringArray, "list of available component names"]],
+            [[tango.DevVoid, ""],
+             [tango.DevVarStringArray, "list of available component names"]],
         'AvailableSelections':
-            [[PyTango.DevVoid, ""],
-             [PyTango.DevVarStringArray, "list of available selection names"]],
+            [[tango.DevVoid, ""],
+             [tango.DevVarStringArray, "list of available selection names"]],
         'AvailableDataSources':
-            [[PyTango.DevVoid, ""],
-             [PyTango.DevVarStringArray,
+            [[tango.DevVoid, ""],
+             [tango.DevVarStringArray,
               "list of available DataSource names"]],
         'StoreSelection':
-            [[PyTango.DevString, "selection name"],
-             [PyTango.DevVoid, ""]],
+            [[tango.DevString, "selection name"],
+             [tango.DevVoid, ""]],
         'StoreComponent':
-            [[PyTango.DevString, "component name"],
-             [PyTango.DevVoid, ""]],
+            [[tango.DevString, "component name"],
+             [tango.DevVoid, ""]],
         'StoreDataSource':
-            [[PyTango.DevString, "datasource name"],
-             [PyTango.DevVoid, ""]],
+            [[tango.DevString, "datasource name"],
+             [tango.DevVoid, ""]],
         'CreateConfiguration':
-            [[PyTango.DevVarStringArray, "list of component names"],
-             [PyTango.DevVoid, ""]],
+            [[tango.DevVarStringArray, "list of component names"],
+             [tango.DevVoid, ""]],
         'DeleteComponent':
-            [[PyTango.DevString, "component name"],
-             [PyTango.DevVoid, ""]],
+            [[tango.DevString, "component name"],
+             [tango.DevVoid, ""]],
         'DeleteSelection':
-            [[PyTango.DevString, "selection name"],
-             [PyTango.DevVoid, ""]],
+            [[tango.DevString, "selection name"],
+             [tango.DevVoid, ""]],
         'DeleteDataSource':
-            [[PyTango.DevString, "datasource name"],
-             [PyTango.DevVoid, ""]],
+            [[tango.DevString, "datasource name"],
+             [tango.DevVoid, ""]],
         'SetComponentDataSources':
-            [[PyTango.DevString, "JSON dict {comp1: {tds1: ds1, ...}, ...}"],
-             [PyTango.DevVoid, ""]],
+            [[tango.DevString, "JSON dict {comp1: {tds1: ds1, ...}, ...}"],
+             [tango.DevVoid, ""]],
         'SetMandatoryComponents':
-            [[PyTango.DevVarStringArray, "component names"],
-             [PyTango.DevVoid, ""]],
+            [[tango.DevVarStringArray, "component names"],
+             [tango.DevVoid, ""]],
         'MandatoryComponents':
-            [[PyTango.DevVoid, ""],
-             [PyTango.DevVarStringArray, "component names"]],
+            [[tango.DevVoid, ""],
+             [tango.DevVarStringArray, "component names"]],
         'UnsetMandatoryComponents':
-            [[PyTango.DevVarStringArray, "list of component names"],
-             [PyTango.DevVoid, ""]],
+            [[tango.DevVarStringArray, "list of component names"],
+             [tango.DevVoid, ""]],
         'ComponentDataSources':
-            [[PyTango.DevString, "component name"],
-             [PyTango.DevVarStringArray, "list of datasource names"]],
+            [[tango.DevString, "component name"],
+             [tango.DevVarStringArray, "list of datasource names"]],
         'ComponentsDataSources':
-            [[PyTango.DevVarStringArray, "component names"],
-             [PyTango.DevVarStringArray, "list of datasource names"]],
+            [[tango.DevVarStringArray, "component names"],
+             [tango.DevVarStringArray, "list of datasource names"]],
         'ComponentsVariables':
-            [[PyTango.DevVarStringArray, "component names"],
-             [PyTango.DevVarStringArray, "list of variable names"]],
+            [[tango.DevVarStringArray, "component names"],
+             [tango.DevVarStringArray, "list of variable names"]],
         'ComponentVariables':
-            [[PyTango.DevString, "component name"],
-             [PyTango.DevVarStringArray, "list of variable names"]],
+            [[tango.DevString, "component name"],
+             [tango.DevVarStringArray, "list of variable names"]],
         'Merge':
-            [[PyTango.DevVarStringArray, "list of component names"],
-             [PyTango.DevString, "merged components"]],
+            [[tango.DevVarStringArray, "list of component names"],
+             [tango.DevString, "merged components"]],
         'DependentComponents':
-            [[PyTango.DevVarStringArray, "component names"],
-             [PyTango.DevVarStringArray, "list of component names"]],
+            [[tango.DevVarStringArray, "component names"],
+             [tango.DevVarStringArray, "list of component names"]],
     }
 
     #: (:obj:`dict` <:obj:`str`, \
     #       [ [ \
-    #          :class:`PyTango.CmdArgType`,
-    #          :class:`PyTango.AttrDataFormat`,
-    #          :class:`PyTango.AttrWriteType` ],
+    #          :class:`tango.CmdArgType`,
+    #          :class:`tango.AttrDataFormat`,
+    #          :class:`tango.AttrWriteType` ],
     #          :obj:`dict` < :obj:`str` , any > ] > ) Attribute definitions
     attr_list = {
         'XMLString':
-        [[PyTango.DevString,
-          PyTango.SCALAR,
-          PyTango.READ_WRITE],
+        [[tango.DevString,
+          tango.SCALAR,
+          tango.READ_WRITE],
          {
              'label': "XML Configuration",
              'description':
@@ -1237,69 +1240,69 @@ class NXSConfigServerClass(PyTango.DeviceClass):
              "performing StoreComponent and StoreDataSource."
              "\nMoreover, after performing CreateConfiguration "
              "it contains the resulting XML configuration.",
-             'Display level': PyTango.DispLevel.EXPERT,
+             'Display level': tango.DispLevel.EXPERT,
         }],
         'Selection':
-        [[PyTango.DevString,
-          PyTango.SCALAR,
-          PyTango.READ_WRITE],
+        [[tango.DevString,
+          tango.SCALAR,
+          tango.READ_WRITE],
          {
             'label': "Selected Component",
             'description':
             "It allows to pass JSON strings into database during "
             "performing StoreSelection.",
-            'Display level': PyTango.DispLevel.EXPERT,
+            'Display level': tango.DispLevel.EXPERT,
         }],
         'JSONSettings':
-        [[PyTango.DevString,
-          PyTango.SCALAR,
-          PyTango.READ_WRITE],
+        [[tango.DevString,
+          tango.SCALAR,
+          tango.READ_WRITE],
          {
              'label': "Arguments of MySQLdb.connect(...)",
              'description': "The JSON string with parameters of "
              "MySQLdb.connect(...).",
              'Memorized': "true",
-             'Display level': PyTango.DispLevel.EXPERT,
+             'Display level': tango.DispLevel.EXPERT,
         }],
         'Version':
-        [[PyTango.DevString,
-          PyTango.SCALAR,
-          PyTango.READ],
+        [[tango.DevString,
+          tango.SCALAR,
+          tango.READ],
          {
              'label': "Configuration Version",
              'description': "Configuration version",
         }],
         'Variables':
-        [[PyTango.DevString,
-          PyTango.SCALAR,
-          PyTango.READ_WRITE],
+        [[tango.DevString,
+          tango.SCALAR,
+          tango.READ_WRITE],
          {
              'label': "XML Configuration Variables",
              'description': "The JSON string with "
              "XML configuration variables",
         }],
         'STEPDataSources':
-        [[PyTango.DevString,
-          PyTango.SCALAR,
-          PyTango.READ_WRITE],
+        [[tango.DevString,
+          tango.SCALAR,
+          tango.READ_WRITE],
          {
              'label': "Datasources to be switched into STEP Mode",
              'description': "JSON list of datasources to be switched "
              "into STEP mode during creating configuration process",
         }],
         'LinkDataSources':
-        [[PyTango.DevString,
-          PyTango.SCALAR,
-          PyTango.READ_WRITE],
+        [[tango.DevString,
+          tango.SCALAR,
+          tango.READ_WRITE],
          {
              'label': "Datasources to which links will be added",
              'description': "JSON list of datasources"
              "to which links will be added",
         }],
         'CanFailDataSources':
-        [[PyTango.DevString,
-          PyTango.SCALAR,
-          PyTango.READ_WRITE],
+        [[tango.DevString,
+          tango.SCALAR,
+          tango.READ_WRITE],
          {
              'label': "Datasources to be switched into CanFail Mode",
              'description': "JSON list of datasources to be switched "
@@ -1310,7 +1313,7 @@ class NXSConfigServerClass(PyTango.DeviceClass):
     def __init__(self, name):
         """ NXSConfigServerClass Constructor
         """
-        PyTango.DeviceClass.__init__(self, name)
+        tango.DeviceClass.__init__(self, name)
         self.set_type(name)
         print("In NXSConfigServerClass  constructor")
 
