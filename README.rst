@@ -71,7 +71,7 @@ with proper privileges.
 Debian packages
 ^^^^^^^^^^^^^^^
 
-Debian Buster (and Stretch) as well as Ubuntu Focal (and Bionic) packages can be found in the HDRI repository.
+Debian Bookworm, Bullseye, Buster and as well as Ubuntu Lunar, Jammy  packages can be found in the HDRI repository.
 
 To install the debian packages, add the PGP repository key
 
@@ -80,12 +80,12 @@ To install the debian packages, add the PGP repository key
 	  $ sudo su
 	  $ wget -q -O - http://repos.pni-hdri.de/debian_repo.pub.gpg | apt-key add -
 
-and then download the corresponding source list, e.g. for buster
+and then download the corresponding source list, e.g. for bookworm
 
 .. code-block:: console
 
 	  $ cd /etc/apt/sources.list.d
-	  $ wget http://repos.pni-hdri.de/buster-pni-hdri.list
+	  $ wget http://repos.pni-hdri.de/bookworm-pni-hdri.list
 
 Finally, for python2 packages
 
