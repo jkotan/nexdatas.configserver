@@ -44,7 +44,7 @@ from .XMLConfigurator import XMLConfigurator as XMLC
 # ==================================================================
 
 
-class NXSConfigServer(tango.Device_4Impl):
+class NXSConfigServer(tango.LatestDeviceImpl):
 
     """   NXSConfigServer Class Description:
 
@@ -63,7 +63,7 @@ class NXSConfigServer(tango.Device_4Impl):
         :param name: device name
         :type name: :obj:`str`
         """
-        tango.Device_4Impl.__init__(self, cl, name)
+        tango.LatestDeviceImpl.__init__(self, cl, name)
         self.debug_stream("In __init__()")
         #: (:class:`nxsconfigserver.XMLConfigutator.XMLConfigutator`) \
         #:    xml configurator instance

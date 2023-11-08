@@ -1,3 +1,7 @@
+2023-11-09 Jan Kotanski <jankotan@gmail.com>
+	* change tango.Device_4Impl to tango.LatestDeviceImpl (#57)
+	* tagged as v2.15.0
+
 2023-09-23 Jan Kotanski <jankotan@gmail.com>
 	* send FATAL, WARN, and ERROR to stderr by default (#48)
 	* tagged as v2.14.3

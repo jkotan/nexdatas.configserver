@@ -40,7 +40,7 @@ class MYSQLDataBase(object):
 
         :brief: It creates the MYSQLDataBase instance
         :param streams: tango-like steamset class
-        :type streams: :class:`StreamSet` or :class:`tango.Device_4Impl`
+        :type streams: :class:`StreamSet` or :class:`tango.LatestDeviceImpl`
         """
         #: (:class:`MySQLdb.connections.Connection`) db instance
         self.__db = None
@@ -48,7 +48,7 @@ class MYSQLDataBase(object):
         self.__args = None
         #: (:obj:`dict` <:obj:`str`, any>) connect arguments string
         self.__argstr = None
-        #: (:class:`StreamSet` or :class:`tango.Device_4Impl`) stream set
+        #: (:class:`StreamSet` or :class:`tango.LatestDeviceImpl`) stream set
         self._streams = streams
 
     def connect(self, args):
