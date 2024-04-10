@@ -49,15 +49,16 @@ docker exec --user root ndts service tango-starter restart
 docker exec  --user root ndts chown -R tango:tango .
 
 if [ "$2" = "2" ]; then
-    echo "install python3-tango"
-    docker exec  --user root ndts /bin/bash -c 'apt-get -qq update; apt-get install -y   python-pytango ; sleep 10'
     echo "install pytango and nxsconfigserver-db"
-    docker exec  --user root ndts /bin/bash -c 'apt-get -qq update; apt-get install -y nxsconfigserver-db'
+    docker exec  --user root ndts /bin/bash -c 'apt-get -qq update; apt-get install -y   python-pytango  nxsconfigserver-db ; sleep 10'
 else
-    echo "install pytango and nxsconfigserver-db"
     if [ "$1" = "debian10" ] || [ "$1" = "ubuntu24.04" ] || [ "$1" = "ubuntu22.04" ] || [ "$1" = "ubuntu20.04" ] || [ "$1" = "ubuntu20.10" ] || [ "$1" = "debian11" ] || [ "$1" = "debian12" ] ; then
-	docker exec --user root ndts /bin/bash -c 'apt-get -qq update; apt-get -qq install -y   python3-tango nxsconfigserver-db; sleep 10'
+	echo "install pytango"
+	docker exec --user root ndts /bin/bash -c 'apt-get -qq update; apt-get install -y   python3-tango'
+	echo "install nxsconfigserver-db"
+	docker exec --user root ndts /bin/bash -c 'apt-get -qq update; apt-get  install -y   nxsconfigserver-db'
     else
+	echo "install pytango and nxsconfigserver-db"
 	docker exec  --user root ndts /bin/bash -c 'apt-get -qq update; apt-get -qq install -y   python3-pytango nxsconfigserver-db; sleep 10'
     fi
 fi
